@@ -23,7 +23,7 @@ int gameMap[49] = {
 };
 
 int letterToNumber(char sY) {
-	int intSY;
+	int intSY = 0;
 	switch(sY) {
 		case 'a':
 			intSY = 0;
@@ -50,7 +50,7 @@ int letterToNumber(char sY) {
 	return intSY;
 }
 
-int parseInput(char sX, char sY, char dX, char dY) {
+void parseInput(char sX, char sY, char dX, char dY) {
 	int intSX = letterToNumber(sY);
 	int intSY = letterToNumber(sX);
 	int intDX = letterToNumber(dY);
@@ -80,9 +80,19 @@ int main() {
 	cout << "Welcome to the American Civil War. This is a local 2 player game, so grab a friend and begin!" << endl;
 	cout << "Press ENTER to continue . . .";
 	cin.get();
+#ifdef WIN32 || _WIN32
+	system("cls");
+#endif
+#ifdef __UNIX__
 	system("clear");
+#endif
 	while (true) {
+#ifdef WIN32 || _WIN32
+		system("cls");
+#endif
+#ifdef __UNIX__
 		system("clear");
+#endif
 		if (turn == 1) {
 			turn = 0;
 			cout << "Confederate player your move." << endl;
@@ -102,9 +112,7 @@ int main() {
 		cout << "Y Position of Destination [A-G]: ";
 		cin >> destinationYPos;
 
-		if (parseInput(sourceXPos, sourceYPos, destinationXPos, destinationYPos) == -1) {
-			return -1;
-		}
+		parseInput(sourceXPos, sourceYPos, destinationXPos, destinationYPos);
 	}
 
 	return 0;	
